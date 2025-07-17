@@ -31,7 +31,7 @@ android {
 
     defaultConfig {
         applicationId = "gay.nullby.carriername"
-        minSdk = 28
+        minSdk = 34
         targetSdk = 36
         versionCode = commitCount
         versionName = "1.1 ($commitHash)"
@@ -63,6 +63,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }

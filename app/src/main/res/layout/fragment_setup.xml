@@ -35,6 +35,6 @@
             app:layout_constraintTop_toBottomOf="@id/textview_first"
             android:enabled="false"/>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

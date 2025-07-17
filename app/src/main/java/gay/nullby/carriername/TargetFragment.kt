@@ -23,7 +23,7 @@ import rikka.shizuku.ShizukuBinderWrapper
 import java.util.Locale
 
 class TargetFragment : Fragment() {
-    private val TAG: String = "TargetFragment"
+    private val tag: String = "TargetFragment"
 
     private var _binding: FragmentTargetBinding? = null
 
@@ -47,22 +47,25 @@ class TargetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var _subId1: IntArray? = SubscriptionManager.getSubId(0);
-        var _subId2: IntArray? = SubscriptionManager.getSubId(1);
+        val subId1Array: IntArray? = SubscriptionManager.getSubId(0);
+        val subId2Array: IntArray? = SubscriptionManager.getSubId(1);
 
-        Log.d(TAG, "#onViewCreated(): subId1=$subId1 subId2=$subId2")
+        val sub1button = view.findViewById<RadioButton>(R.id.sub1_button)
+        val sub2button = view.findViewById<RadioButton>(R.id.sub2_button)
 
-        if (_subId1 != null) {
-            subId1 = _subId1[0]
-            view.findViewById<RadioButton>(R.id.sub1_button).text = "Network 1 (carrier: ${getCarrierNameBySubId(subId1)})"
+        Log.d(tag, "#onViewCreated(): subId1=$subId1 subId2=$subId2")
+
+        if (subId1Array != null) {
+            subId1 = subId1Array[0]
+            sub1button.text = "Network 1 (carrier: ${getCarrierNameBySubId(subId1)})"
         }
-        if (_subId2 != null) {
-            subId2 = _subId2[0]
-            view.findViewById<RadioButton>(R.id.sub2_button).text = "Network 2 (carrier: ${getCarrierNameBySubId(subId2)})"
+        if (subId2Array != null) {
+            subId2 = subId2Array[0]
+            sub2button.text = "Network 2 (carrier: ${getCarrierNameBySubId(subId2)})"
         }
 
         if (subId2 == -1) {
-            view.findViewById<View>(R.id.sub2_button).visibility = View.GONE
+            sub2button.visibility = View.GONE
         }
 
         view.findViewById<Button>(R.id.button_set).setOnClickListener { onSetName(view.findViewById<EditText>(R.id.text_entry).text.toString(), view.findViewById<EditText>(R.id.iso_region_input).text.toString()) }
@@ -79,12 +82,10 @@ class TargetFragment : Fragment() {
     }
 
     private fun onSetName(text: String, isoRegion: String) {
-        var p = PersistableBundle();
+        val p = PersistableBundle();
         if (isoRegion.isNotEmpty()) {
             if (isoRegion.length == 2) {
-                p.putString(CarrierConfigManager.KEY_SIM_COUNTRY_ISO_OVERRIDE_STRING, isoRegion.lowercase(
-                    Locale.ROOT
-                )
+                p.putString(CarrierConfigManager.KEY_SIM_COUNTRY_ISO_OVERRIDE_STRING, isoRegion.lowercase(Locale.ROOT)
                 )
             } else {
                 Toast.makeText(context, "Invalid ISO region!", Toast.LENGTH_SHORT).show()
@@ -96,26 +97,23 @@ class TargetFragment : Fragment() {
         p.putBoolean(CarrierConfigManager.KEY_CARRIER_NAME_OVERRIDE_BOOL, true)
         p.putString(CarrierConfigManager.KEY_CARRIER_NAME_STRING, text)
         p.putString(CarrierConfigManager.KEY_CARRIER_CONFIG_VERSION_STRING, /* trans rights! 🏳️‍⚧️*/ ":3")
-        p.putBoolean(CarrierConfigManager.KEY_CARRIER_VOLTE_AVAILABLE_BOOL, true)
-
-        val subId: Int;
-        if (selectedSub == 1) {
-            subId = subId1!!
+        p.putBoolean(CarrierConfigManager.KEY_CARRIER_VOLTE_AVAILABLE_BOOL, true);
+        val subId: Int = if (selectedSub == 1) {
+            subId1
         } else {
-            subId = subId2!!
+            subId2
         }
         overrideCarrierConfig(subId, p)
     }
 
     private fun onResetName() {
-        var p = PersistableBundle();
+        val p = PersistableBundle();
         p.putBoolean(CarrierConfigManager.KEY_CARRIER_NAME_OVERRIDE_BOOL, false)
-        p.putString(CarrierConfigManager.KEY_CARRIER_NAME_STRING, "")
-        val subId: Int;
-        if (selectedSub == 1) {
-            subId = subId1!!
+        p.putString(CarrierConfigManager.KEY_CARRIER_NAME_STRING, "");
+        val subId: Int = if (selectedSub == 1) {
+            subId1
         } else {
-            subId = subId2!!
+            subId2
         }
         // Sometimes just setting the override to null doesn't work, so let's first set another override, disabling the name change
         overrideCarrierConfig(subId, p)
