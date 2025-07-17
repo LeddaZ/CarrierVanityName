@@ -133,19 +133,21 @@ class TargetFragment : Fragment() {
     }
 
     private fun getCarrierNameBySubId(subId: Int): String {
-        val telephonyManager = context!!.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
+        val telephonyManager = requireContext().getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
             ?: return ""
         return telephonyManager.getNetworkOperatorName(subId)
     }
 
     private fun overrideCarrierConfig(subId: Int, p: PersistableBundle?) {
         val carrierConfigLoader = ICarrierConfigLoader.Stub.asInterface(
-            ShizukuBinderWrapper(
-                TelephonyFrameworkInitializer
-                    .getTelephonyServiceManager()
-                    .carrierConfigServiceRegisterer
-                    .get()
-            )
+            TelephonyFrameworkInitializer
+                .getTelephonyServiceManager()
+                .carrierConfigServiceRegisterer
+                .get()?.let {
+                    ShizukuBinderWrapper(
+                        it
+                    )
+                }
         )
         carrierConfigLoader.overrideConfig(subId, p, true)
     }
