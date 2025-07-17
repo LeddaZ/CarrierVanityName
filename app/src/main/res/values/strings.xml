@@ -10,4 +10,13 @@
     <string name="shizuku_intro">
         To use this app you need Shizuku. If it\'s installed, you will be asked to grant this app permissions.\n\nKeep in mind that anything using Shizuku might potentially cause harm to your device (and the data on it). I\'m not responsible for any damage that might be caused by this app.\n\nYou have been warned.
     </string>
+    <string name="sub_button">Network %s (carrier: %s)</string>
+    <string name="network_selected">Network %s selected</string>
+    <string name="invalid_iso">Invalid ISO region!</string>
+    <string name="name_set">Carrier vanity name set to %s</string>
+    <string name="iso_hint">ISO country code (leave empty to leave unchanged)</string>
+    <string name="set_button">Set</string>
+    <string name="reset_button">Reset</string>
+    <string name="vanity_hint">Vanity network name</string>
+    <string name="placeholder">Placeholder</string>
 </resources>

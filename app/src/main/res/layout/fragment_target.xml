@@ -25,13 +25,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="sub1" />
+                    android:text="@string/placeholder" />
 
                 <RadioButton
                     android:id="@+id/sub2_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="sub2" />
+                    android:text="@string/placeholder" />
 
             </RadioGroup>
 
@@ -39,8 +39,9 @@
                 android:id="@+id/text_entry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:ems="10"
-                android:hint="Vanity network name"
+                android:hint="@string/vanity_hint"
                 android:inputType="text"
                 android:paddingTop="16dp" />
 
@@ -48,12 +49,14 @@
                 android:id="@+id/iso_region_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:ems="10"
-                android:hint="ISO country code (leave empty to leave unchanged)"
+                android:hint="@string/iso_hint"
                 android:inputType="text"
                 android:paddingTop="16dp" />
 
             <LinearLayout
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -65,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Set" />
+                    android:text="@string/set_button" />
 
                 <Button
                     android:id="@+id/button_reset"
@@ -73,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="Reset" />
+                    android:text="@string/reset_button" />
             </LinearLayout>
 
         </LinearLayout>
