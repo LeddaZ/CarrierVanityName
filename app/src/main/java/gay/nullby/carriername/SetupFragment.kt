@@ -11,7 +11,6 @@ import gay.nullby.carriername.databinding.FragmentSetupBinding
 import rikka.shizuku.Shizuku
 
 class SetupFragment : Fragment() {
-
     private var _binding: FragmentSetupBinding? = null
 
     private val binding get() = _binding!!
@@ -60,5 +59,4 @@ class SetupFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
